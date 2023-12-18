@@ -59,10 +59,16 @@ app.post('/visit', async (req, res) => {
 
 
 app.get('/visit/:id', async (req, res) => {
+
     const visit = await Visit.findById(req.params.id);
+
     if (!visit) return res.status(404).send('No visit with the given ID was found.');
+
     res.send(visit);
+
+
 });
+
 
 
 
@@ -84,6 +90,28 @@ app.get('/patient-vitals/:id', async (req, res) => {
     res.send(patientVital);
 
 });
+
+
+app.post('/doctor-patient-symptoms', async (req, res) => {
+    // Checking if doctor is authorized to add symptom for this patient
+    const doctorPatientSymptom = new DoctorPatientSymptom(req.body);
+
+    await doctorPatientSymptom.save();
+
+    res.status(201).send(doctorPatientSymptom);
+
+});
+
+app.get('/doctor-patient-symptoms/:id', async (req, res) => {
+
+    const doctorPatientSymptom = await DoctorPatientSymptom.findById(req.params.id);
+
+    if (!doctorPatientSymptom) return res.status(404).send('No doctor patient symptom with the given ID was found.');
+
+    res.send(doctorPatientSymptom);
+});
+
+
 
 
 
