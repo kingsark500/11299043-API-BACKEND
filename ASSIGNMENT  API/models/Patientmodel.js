@@ -20,7 +20,7 @@ const patientSchema = new Schema({
 
     Contact: Number,
 
-    RelationshipWithStudent: String
+    RelationshipWithPatient: String
 
 })
 
